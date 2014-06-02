@@ -67,7 +67,7 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessWithDefaultCwdAndEnv()
     {
-        $cmd = PHP_BINARY . ' -r ' . escapeshellarg('echo getcwd(), PHP_EOL, count($_ENV), PHP_EOL;');
+        $cmd = PHP_BINARY . ' -r ' . escapeshellarg('echo getcwd(), PHP_EOL, count($_SERVER), PHP_EOL;');
 
         $loop = $this->createLoop();
         $process = new Process($cmd);
@@ -83,7 +83,7 @@ abstract class AbstractProcessTest extends \PHPUnit_Framework_TestCase
 
         $loop->run();
 
-        $expectedOutput = sprintf('%s%s%d%s', getcwd(), PHP_EOL, count($_ENV), PHP_EOL);
+        $expectedOutput = sprintf('%s%s%d%s', getcwd(), PHP_EOL, count($_SERVER), PHP_EOL);
         $this->assertSame($expectedOutput, $output);
     }
 
